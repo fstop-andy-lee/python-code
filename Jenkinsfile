@@ -2,19 +2,14 @@ node {
     def app
 
     stage('Clone repository') {
-      
-
         checkout scm
     }
 
-    stage('Build image') {
-  
-       app = docker.build("raj80dockerid/test")
+    stage('Build image') {  
+       app = docker.build("andylee1973/python")
     }
 
     stage('Test image') {
-  
-
         app.inside {
             sh 'echo "Tests passed"'
         }
@@ -28,7 +23,7 @@ node {
     }
     
     stage('Trigger ManifestUpdate') {
-                echo "triggering updatemanifestjob"
+                echo "triggering update manifest job"
                 build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
         }
 }
