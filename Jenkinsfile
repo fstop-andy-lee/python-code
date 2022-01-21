@@ -14,8 +14,8 @@ node {
 
        sh "echo ${DOCKERHUB_TOKEN_ID} "
        environment {
-        IMAGE=${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
-        TAG=${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}:${CTS}
+        IMAGE='${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}'
+        TAG='${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}:${CTS}'
        }
        
        sh """
