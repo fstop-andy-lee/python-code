@@ -14,8 +14,8 @@ node {
     }
 
     stage('Build image') {
-       script {
-        sh "echo \${DOCKERHUB_TOKEN_ID} "
+       steps {  
+        sh "echo ${DOCKERHUB_TOKEN_ID} "
        }
        
        sh '''
