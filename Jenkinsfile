@@ -15,7 +15,7 @@ node {
     stage('Build image') {
     
        CTS = sh(script:'date +%Y-%m-%dT%H:%M:00Z', returnStdout: true).trim()
-       DOCKER_TAG = '${DOCKER_IMAGE_NAME}:${CTS}' 
+       DOCKER_TAG = ${DOCKER_IMAGE_NAME}:${CTS}
 
        sh "echo ${DOCKERHUB_TOKEN_ID} "
        
