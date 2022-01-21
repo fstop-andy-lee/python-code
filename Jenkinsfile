@@ -4,9 +4,6 @@ node {
     def  DOCKER_REGISTRY = 'docker.io'
     def  DOCKER_NAMESPACE = 'default'
     def  IMAGE_NAME = 'andylee1973/python'
-    def  DOCKER_IMAGE_NAME = '${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}'
-       
-  
   
     stage('Clone repository') {
         checkout scm
@@ -14,7 +11,8 @@ node {
 
     stage('Build image') {
     
-       CTS = sh(script:'date +%Y-%m-%dT%H:%M:00Z', returnStdout: true).trim()
+       CTS = sh(script:'date +%Y-%m-%dT%H:%M', returnStdout: true).trim()
+       DOCKER_IMAGE_NAME = '${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}'
   
        sh "echo ${CTS} "
        sh "echo ${DOCKERHUB_TOKEN_ID} "       
