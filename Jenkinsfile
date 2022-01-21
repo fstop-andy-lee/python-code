@@ -18,7 +18,6 @@ node {
                 #!/bin/bash
                 IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
                 TAG=\${IMAGE}:${CTS}
-                who
                 sudo podman build -t \${IMAGE} .
                 sudo podman tag \${IMAGE} \${TAG}                
           """
