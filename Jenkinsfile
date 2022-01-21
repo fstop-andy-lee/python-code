@@ -24,8 +24,8 @@ node {
                 IMAGE=${DOCKER_IMAGE_NAME}
                 TAG=${DOCKER_IMAGE_NAME}:${CTS}
                 
-                podman build -t ${IMAGE} .
-                podman tag ${IMAGE} ${TAG}                
+                podman build -t \${IMAGE} .
+                podman tag \${IMAGE} \${TAG}                
           """
     }
 
