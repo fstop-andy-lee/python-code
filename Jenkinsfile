@@ -14,7 +14,6 @@ node {
        CTS = sh(script:'date +%Y-%m-%dT%H:%M', returnStdout: true).trim()
   
        sh "echo ${CTS} "
-       sh "echo ${DOCKER_IMAGE_NAME} "       
        
        sh """
                 #!/bin/bash
