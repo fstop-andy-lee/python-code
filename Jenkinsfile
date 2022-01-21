@@ -1,13 +1,10 @@
 node {
-
-    //environment {
+    
     def  DOCKERHUB_TOKEN_ID = 'fstop-andy-lee-dockerhub-token'     
     def  DOCKER_REGISTRY = 'docker.io'
     def  DOCKER_NAMESPACE = 'default'
     def  IMAGE_NAME = 'andylee1973/python'
     def  CTS = sh(script:'date +%Y-%m-%dT%H:%M:00Z', returnStdout: true).trim()	
-      
-	  //}
   
     stage('Clone repository') {
         checkout scm
@@ -22,8 +19,8 @@ node {
                 #!/bin/bash
 
                 # Construct Image Name
-                IMAGE=\${env.DOCKERHUB_TOKEN_ID}/\${env.DOCKER_NAMESPACE}/\${env.IMAGE_NAME}
-                TAG=\${IMAGE}:\${CTS}
+                IMAGE=${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
+                TAG=${IMAGE}:${CTS}
 
                 podman build -t ${IMAGE} .
                 podman tag ${IMAGE} ${TAG}                
