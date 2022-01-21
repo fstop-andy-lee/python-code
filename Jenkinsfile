@@ -21,8 +21,8 @@ node {
        sh """
                 #!/bin/bash
 
-                podman build -t ${env.IMAGE} .
-                podman tag ${env.IMAGE} ${env.TAG}                
+                podman build -t \${IMAGE} .
+                podman tag \${IMAGE} \${TAG}                
           """
     }
 
