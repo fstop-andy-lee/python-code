@@ -10,7 +10,8 @@ node {
     }
 
     stage('Build image') {
-    
+       // ${xxx} for jenkins variable, \${xxx} for shell variable
+       
        CTS = sh(script:'date +%Y-%m-%dT%H:%M', returnStdout: true).trim()  
        sh "echo ${CTS} "       
        sh """
