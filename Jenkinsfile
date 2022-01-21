@@ -12,10 +12,10 @@ node {
     stage('Build image') {
     
        CTS = sh(script:'date +%Y-%m-%dT%H:%M', returnStdout: true).trim()
-       DOCKER_IMAGE_NAME = '${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}'
+       DOCKER_IMAGE_NAME = ${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
   
        sh "echo ${CTS} "
-       sh "echo ${DOCKERHUB_TOKEN_ID} "       
+       sh "echo ${DOCKER_IMAGE_NAME} "       
        
        sh """
                 #!/bin/bash
