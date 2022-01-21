@@ -18,7 +18,6 @@ node {
   
        sh "echo ${CTS} "
        sh "echo ${DOCKERHUB_TOKEN_ID} "       
-       sh "echo ${DOCKER_TAG} "
        
        sh """
                 #!/bin/bash
