@@ -12,15 +12,14 @@ node {
     stage('Build image') {
     
        CTS = sh(script:'date +%Y-%m-%dT%H:%M', returnStdout: true).trim()
-       DOCKER_IMAGE_NAME = ${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
   
        sh "echo ${CTS} "
        sh "echo ${DOCKER_IMAGE_NAME} "       
        
        sh """
                 #!/bin/bash
-                IMAGE=${DOCKER_IMAGE_NAME}
-                TAG=${DOCKER_IMAGE_NAME}:${CTS}
+                IMAGE=${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
+                TAG=\${IMAGE}:${CTS}
                 
                 podman build -t \${IMAGE} .
                 podman tag \${IMAGE} \${TAG}                
