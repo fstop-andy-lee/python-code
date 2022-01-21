@@ -4,7 +4,6 @@ node {
     def  DOCKER_REGISTRY = 'docker.io'
     def  DOCKER_NAMESPACE = 'default'
     def  IMAGE_NAME = 'andylee1973/python'
-    def  CTS = sh(script:'date +%Y-%m-%dT%H:%M:00Z', returnStdout: true).trim()	
   
     stage('Clone repository') {
         checkout scm
@@ -14,15 +13,16 @@ node {
 
        sh "echo ${DOCKERHUB_TOKEN_ID} "
        environment {
-        IMAGE='${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}'
-        TAG='${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}:${CTS}'
+        CTS = sh(script:'date +%Y-%m-%dT%H:%M:00Z', returnStdout: true).trim()	
+        IMAGE = '${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}'
+        TAG = '${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}:${CTS}'
        }
        
        sh """
                 #!/bin/bash
 
-                podman build -t ${IMAGE} .
-                podman tag ${IMAGE} ${TAG}                
+                podman build -t ${env.IMAGE} .
+                podman tag ${env.IMAGE} ${env.TAG}                
           """
     }
 
