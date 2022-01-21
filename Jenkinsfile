@@ -12,11 +12,11 @@ node {
     stage('Build image') {
 
        sh "echo ${DOCKERHUB_TOKEN_ID} "
-       environment {
+       //environment {
         CTS = sh(script:'date +%Y-%m-%dT%H:%M:00Z', returnStdout: true).trim()	
         IMAGE = '${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}'
         TAG = '${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}:${CTS}'
-       }
+       //}
        sh "echo ${IMAGE} "
        
        sh """
