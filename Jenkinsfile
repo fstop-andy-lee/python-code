@@ -1,8 +1,4 @@
 node {
-    
-    agent {
-      label "Nodes=JavaSlaveNode1"
-    }
 
     environment {
       DOCKERHUB_TOKEN_ID = 'fstop-andy-lee-dockerhub-token'     
