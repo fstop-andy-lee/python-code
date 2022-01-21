@@ -14,16 +14,16 @@ node {
     }
 
     stage('Build image') {
-       sh """
+       sh '''
                 #!/bin/bash
 
                 # Construct Image Name
-                IMAGE=env.DOCKERHUB_TOKEN_ID/\${DOCKER_NAMESPACE}/\${IMAGE_NAME}
+                IMAGE=${env.DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
                 TAG=\${IMAGE}:\${CTS}
 
-                podman build -t \${IMAGE} .
-                podman tag \${IMAGE} \${TAG}                
-          """
+                podman build -t ${IMAGE} .
+                podman tag ${IMAGE} ${TAG}                
+          '''
     }
 
     //stage('Test image') {        
