@@ -17,12 +17,13 @@ node {
         IMAGE = '${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}'
         TAG = '${DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}:${CTS}'
        }
+       sh "echo ${IMAGE} "
        
        sh """
                 #!/bin/bash
 
-                podman build -t \${IMAGE} .
-                podman tag \${IMAGE} \${TAG}                
+                podman build -t ${IMAGE} .
+                podman tag ${IMAGE} ${TAG}                
           """
     }
 
