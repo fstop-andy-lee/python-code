@@ -18,7 +18,7 @@ node {
                 #!/bin/bash
 
                 # Construct Image Name
-                IMAGE=${env.DOCKERHUB_TOKEN_ID}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
+                IMAGE=\${env.DOCKERHUB_TOKEN_ID}/\${env.DOCKER_NAMESPACE}/\${env.IMAGE_NAME}
                 TAG=\${IMAGE}:\${CTS}
 
                 podman build -t ${IMAGE} .
