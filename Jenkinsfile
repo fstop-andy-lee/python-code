@@ -17,13 +17,14 @@ node {
        CTS = sh(script:'date +%Y-%m-%dT%H:%M:00Z', returnStdout: true).trim()
   
        sh "echo ${CTS} "
-       sh "echo ${DOCKERHUB_TOKEN_ID} "
-       
+       sh "echo ${DOCKERHUB_TOKEN_ID} "       
        sh "echo ${DOCKER_TAG} "
        
        sh """
                 #!/bin/bash
-
+                IMAGE=${DOCKER_IMAGE_NAME}
+                TAG=${DOCKER_IMAGE_NAME}:${CTS}
+                
                 podman build -t ${IMAGE} .
                 podman tag ${IMAGE} ${TAG}                
           """
