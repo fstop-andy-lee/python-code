@@ -13,11 +13,17 @@ node {
         checkout scm
     }
 
-    stage('Build image') {  
-       steps {  
-        sh 'podman build -t ${REGISTRY}/${NAMESPACE}/${IMAGE_NAME} .'
-        sh 'podman tag ${REGISTRY}/${NAMESPACE}/${IMAGE_NAME} ${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${CTS}'
-       }
+    stage('Build image') {
+       sh """
+                #!/bin/bash
+
+                # Construct Image Name
+                IMAGE=${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}
+                TAG=${IMAGE}:${CTS}
+
+                podman build -t ${IMAGE} .
+                podman tag ${IMAGE} ${TAG}                
+          """
     }
 
     //stage('Test image') {        
