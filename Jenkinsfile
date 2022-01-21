@@ -19,10 +19,10 @@ node {
 
                 # Construct Image Name
                 IMAGE=env.DOCKERHUB_TOKEN_ID/env.DOCKER_NAMESPACE/env.IMAGE_NAME
-                TAG=${IMAGE}:env.CTS
+                TAG=\${IMAGE}:env.CTS
 
-                podman build -t ${IMAGE} .
-                podman tag ${IMAGE} ${TAG}                
+                podman build -t \${IMAGE} .
+                podman tag \${IMAGE} \${TAG}                
           """
     }
 
