@@ -18,8 +18,8 @@ node {
                 #!/bin/bash
 
                 # Construct Image Name
-                IMAGE=env.DOCKERHUB_TOKEN_ID/${DOCKER_NAMESPACE}/${IMAGE_NAME}
-                TAG=${IMAGE}:${CTS}
+                IMAGE=env.DOCKERHUB_TOKEN_ID/env.DOCKER_NAMESPACE/env.IMAGE_NAME
+                TAG=${IMAGE}:env.CTS
 
                 podman build -t ${IMAGE} .
                 podman tag ${IMAGE} ${TAG}                
@@ -32,7 +32,7 @@ node {
     stage('Push image') {
         steps {
                withDockerRegistry([ credentialsId: env.DOCKERHUB_TOKEN_ID, url: "" ]) {
-                 sh  'podman push ${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}:${CTS}'
+                 sh  'podman push env.DOCKER_REGISTRY/env.DOCKER_NAMESPACE/env.IMAGE_NAME:env.CTS'
                  sh  'podman logout'
                }                  
         }
