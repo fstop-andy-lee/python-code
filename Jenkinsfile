@@ -1,13 +1,13 @@
 node {
 
-    environment {
-      DOCKERHUB_TOKEN_ID = 'fstop-andy-lee-dockerhub-token'     
-      DOCKER_REGISTRY = 'docker.io'
-      DOCKER_NAMESPACE = 'default'
-      IMAGE_NAME = 'andylee1973/python'
-      CTS = sh(script:'date +%Y-%m-%dT%H:%M:00Z', returnStdout: true).trim()	
+    //environment {
+    def  DOCKERHUB_TOKEN_ID = 'fstop-andy-lee-dockerhub-token'     
+    def  DOCKER_REGISTRY = 'docker.io'
+    def  DOCKER_NAMESPACE = 'default'
+    def  IMAGE_NAME = 'andylee1973/python'
+    def  CTS = sh(script:'date +%Y-%m-%dT%H:%M:00Z', returnStdout: true).trim()	
       
-	  }
+	  //}
   
     stage('Clone repository') {
         checkout scm
@@ -15,7 +15,7 @@ node {
 
     stage('Build image') {
 
-       sh "echo ${env.DOCKERHUB_TOKEN_ID} "
+       sh "echo ${DOCKERHUB_TOKEN_ID} "
        
        
        sh '''
