@@ -24,6 +24,6 @@ node {
     
     stage('Trigger ManifestUpdate') {
                 echo "triggering update manifest job"
-                build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+                build job: 'test-python-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
         }
 }
