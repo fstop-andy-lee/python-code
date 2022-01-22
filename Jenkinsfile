@@ -27,12 +27,18 @@ node {
     //}
 
     stage('Push image') {
-        steps {
-               withDockerRegistry([ credentialsId: env.DOCKERHUB_TOKEN_ID, url: "" ]) {
-                 sh  'podman push env.DOCKER_REGISTRY/env.DOCKER_NAMESPACE/env.IMAGE_NAME:env.CTS'
-                 sh  'podman logout'
-               }                  
-        }
+        withDockerRegistry([ credentialsId: DOCKERHUB_TOKEN_ID, url: "" ]) {
+          CTS = sh(script:'date +%Y-%m-%d', returnStdout: true).trim()  
+          sh "echo ${CTS} "       
+          sh """
+              #!/bin/bash
+              IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
+              IMAGE_WITH_TAG=\${IMAGE}:${CTS}
+              sudo podman push \${IMAGE_WITH_TAG}  
+              sudo podman logout
+             """
+        }                  
+        
     }
     
     /*
