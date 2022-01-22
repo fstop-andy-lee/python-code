@@ -31,9 +31,6 @@ node {
     stage('Push image') {
         CTS = sh(script:'date +%Y-%m-%d', returnStdout: true).trim()  
         sh "echo ${CTS} "
-        environment { 
-           DOCKER_TOKEN = credentials(DOCKERHUB_TOKEN_ID) 
-        }
         
         /*
         withDockerRegistry( [url: DOCKER_REGISTRY_URL, credentialsId: DOCKERHUB_TOKEN_ID] ) {                
@@ -46,8 +43,7 @@ node {
              """
         } 
         */
-        
-        sh "echo $DOCKER_TOKEN_USR " 
+        /*
         sh """
               #!/bin/bash
               IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
@@ -57,21 +53,21 @@ node {
               sudo podman push \${IMAGE_WITH_TAG}  
               sudo podman logout
              """
+        */
         
         
-        /*
         withCredentials([usernamePassword(credentialsId: DOCKERHUB_TOKEN_ID, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
           sh """
               #!/bin/bash
               IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
               IMAGE_WITH_TAG=\${IMAGE}:${CTS}
-              echo $USERNAME $PASSWORD
-              sudo podman login -u $USERNAME -p $PASSWORD ${DOCKER_REGISTRY_URL}
+              echo \$USERNAME \$PASSWORD
+              sudo podman login -u \$USERNAME -p \$PASSWORD ${DOCKER_REGISTRY_URL}
               sudo podman push \${IMAGE_WITH_TAG}  
               sudo podman logout
              """
         }
-        */
+        
         /*
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: DOCKERHUB_TOKEN_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
           sh """
