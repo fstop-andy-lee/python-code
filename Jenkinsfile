@@ -47,13 +47,13 @@ node {
         } 
         */
         
-        sh "echo \${DOCKER_TOKEN} " 
+        sh "echo ${DOCKER_TOKEN} " 
         sh """
               #!/bin/bash
               IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
               IMAGE_WITH_TAG=\${IMAGE}:${CTS}
-              echo ${DOCKER_USER} \${DOCKER_TOKEN}
-              sudo podman login -u ${DOCKER_USER} -p \${DOCKER_TOKEN} ${DOCKER_REGISTRY_URL}
+              echo ${DOCKER_USER} ${DOCKER_TOKEN}
+              sudo podman login -u ${DOCKER_USER} -p ${DOCKER_TOKEN} ${DOCKER_REGISTRY_URL}
               sudo podman push \${IMAGE_WITH_TAG}  
               sudo podman logout
              """
