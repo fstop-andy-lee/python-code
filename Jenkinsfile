@@ -2,6 +2,7 @@ node {
     
     def  DOCKERHUB_TOKEN_ID = 'fstop-andy-lee-dockerhub-token'     
     def  DOCKER_REGISTRY = 'docker.io'
+    def  DOCKER_REGISTRY_URL = 'https://docker.io'
     def  DOCKER_NAMESPACE = 'default'
     def  IMAGE_NAME = 'andylee1973/python'
   
@@ -29,7 +30,7 @@ node {
     stage('Push image') {
         CTS = sh(script:'date +%Y-%m-%d', returnStdout: true).trim()  
         sh "echo ${CTS} " 
-        withDockerRegistry( [url: "https://hub.docker.com/", credentialsId: DOCKERHUB_TOKEN_ID] ) {                
+        withDockerRegistry( [url: DOCKER_REGISTRY_URL, credentialsId: DOCKERHUB_TOKEN_ID] ) {                
           sh """
               #!/bin/bash
               IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
