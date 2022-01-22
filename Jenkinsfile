@@ -45,7 +45,7 @@ node {
         
         
         TOKEN = credentials(DOCKERHUB_TOKEN_ID)
-        
+        sh "echo ${TOKEN} " 
         sh """
               #!/bin/bash
               IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
