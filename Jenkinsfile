@@ -18,7 +18,8 @@ node {
        sh "echo ${CTS} "       
        sh """
                 #!/bin/bash
-                IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
+                #IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
+                IMAGE=${DOCKER_REGISTRY}/${IMAGE_NAME}
                 TAG=\${IMAGE}:${CTS}
                 sudo podman build -t \${IMAGE} .
                 sudo podman tag \${IMAGE} \${TAG}                
