@@ -58,12 +58,11 @@ node {
              """
         }  
     }
-        
-    /*    
+               
     stage('Trigger Manifest Update') {
         echo "Trigger Manifest Update"
         build job: 'test-python-manifest', parameters: [string(name: 'DOCKERTAG', value: BUILD_NUMBER)]
     }
-    */
+    
     
 }
