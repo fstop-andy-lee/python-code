@@ -55,7 +55,13 @@ node {
              """
         */
         
+        withCredentials([string(credentialsId: DOCKERHUB_TOKEN_ID, variable: 'TOKEN')]) {
+          sh '''
+              echo "Token: $TOKEN"
+             '''
+        }
         
+        /*
         withCredentials([usernamePassword(credentialsId: DOCKERHUB_TOKEN_ID, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
           sh """
               #!/bin/bash
@@ -66,6 +72,7 @@ node {
               sudo podman logout
              """
         }
+        */
         
         /*
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: DOCKERHUB_TOKEN_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
