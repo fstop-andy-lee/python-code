@@ -64,5 +64,4 @@ node {
         build job: 'test-python-manifest', parameters: [string(name: 'DOCKERTAG', value: BUILD_NUMBER)]
     }
     
-    
 }
