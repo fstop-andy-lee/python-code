@@ -1,4 +1,4 @@
-node {
+pipeline {
     
     def  DOCKERHUB_TOKEN_ID = 'fstop-andy-lee-dockerhub-token'     
     def  DOCKER_REGISTRY = 'docker.io'
