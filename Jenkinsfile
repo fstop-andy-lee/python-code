@@ -57,7 +57,7 @@ node {
         
         withCredentials([usernameColonPassword(credentialsId: DOCKERHUB_TOKEN_ID, variable: 'TOKEN')]) {
           sh '''
-              echo "Token: $TOKEN"
+              echo "Token"
              '''
         }
         
