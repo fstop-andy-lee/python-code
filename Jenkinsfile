@@ -6,15 +6,18 @@ node {
     def  DOCKER_NAMESPACE = 'default'
     def  DOCKER_USER = 'andylee1973'
     def  IMAGE_NAME = 'andylee1973/python'
+    def  CTS = sh(script:'date +%Y-%m-%d', returnStdout: true).trim()  
   
     stage('Clone repository') {
         checkout scm
     }
 
-    stage('Build image') {
+    stage('Build Container Image') {
        // ${xxx} for jenkins variable, \${xxx} for shell variable
        
-       CTS = sh(script:'date +%Y-%m-%d', returnStdout: true).trim()  
+       //CTS = sh(script:'date +%Y-%m-%d', returnStdout: true).trim() 
+       
+       echo "Build Container Image"
        sh "echo ${CTS} "       
        sh """
                 #!/bin/bash
@@ -29,8 +32,10 @@ node {
     //stage('Test image') {        
     //}
 
-    stage('Push image') {
-        CTS = sh(script:'date +%Y-%m-%d', returnStdout: true).trim()  
+    stage('Push Container Image') {
+        //CTS = sh(script:'date +%Y-%m-%d', returnStdout: true).trim()  
+        
+        echo "Push Container Image"
         sh "echo ${CTS} "
         
         /*
@@ -40,23 +45,10 @@ node {
               IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
               IMAGE_WITH_TAG=\${IMAGE}:${CTS}
               sudo podman push \${IMAGE_WITH_TAG}  
-              sudo podman logout
+              sudo podman logout ${DOCKER_REGISTRY_URL}
              """
         } 
-        */
-        /*
-        sh """
-              #!/bin/bash
-              IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
-              IMAGE_WITH_TAG=\${IMAGE}:${CTS}
-              echo ${DOCKER_USER} ${DOCKER_TOKEN}
-              sudo podman login -u ${DOCKER_USER} -p ${DOCKER_TOKEN} ${DOCKER_REGISTRY_URL}
-              sudo podman push \${IMAGE_WITH_TAG}  
-              sudo podman logout
-             """
-        */
-        
-        
+        */        
         withCredentials([usernamePassword(credentialsId: DOCKERHUB_TOKEN_ID, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
           sh """
               #!/bin/bash
@@ -67,14 +59,17 @@ node {
               sudo podman push \${IMAGE_WITH_TAG}  
               sudo podman logout ${DOCKER_REGISTRY_URL}
              """
-        }
-        
+        }  
     }
-    
-    /*
-    stage('Trigger ManifestUpdate') {
-                echo "triggering update manifest job"
-                build job: 'test-python-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+        
+    /*    
+    stage('Trigger Manifest Update') {
+        echo "Trigger Manifest Update"
+        
+        //CTS = sh(script:'date +%Y-%m-%d', returnStdout: true).trim()  
+        
+        build job: 'test-python-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
     }
     */
+    
 }
