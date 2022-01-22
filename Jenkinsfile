@@ -65,25 +65,9 @@ node {
               IMAGE_WITH_TAG=\${IMAGE}:${CTS}
               sudo podman login -u \$USERNAME -p \$PASSWORD ${DOCKER_REGISTRY_URL}
               sudo podman push \${IMAGE_WITH_TAG}  
-              sudo podman logout
+              sudo podman logout ${DOCKER_REGISTRY_URL}
              """
         }
-        
-        
-        /*
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: DOCKERHUB_TOKEN_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-          sh """
-              #!/bin/bash
-              IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
-              IMAGE_WITH_TAG=\${IMAGE}:${CTS}
-              echo $USERNAME $PASSWORD
-              sudo podman login -u $USERNAME -p $PASSWORD ${DOCKER_REGISTRY_URL}
-              sudo podman push \${IMAGE_WITH_TAG}  
-              sudo podman logout
-             """
-        }
-        */
-        
         
     }
     
