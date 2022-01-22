@@ -27,7 +27,7 @@ node {
     //}
 
     stage('Push image') {
-        withDockerRegistry([ credentialsId: DOCKERHUB_TOKEN_ID, url: "" ]) {
+        docker.withRegistry(url: "https://hub.docker.com/", credentialsId: DOCKERHUB_TOKEN_ID ) {
           CTS = sh(script:'date +%Y-%m-%d', returnStdout: true).trim()  
           sh "echo ${CTS} "       
           sh """
