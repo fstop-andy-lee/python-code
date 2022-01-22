@@ -46,7 +46,7 @@ node {
              """
         } 
         */
-        steps {
+        step {
           sh "env " 
         }
         sh "env " 
