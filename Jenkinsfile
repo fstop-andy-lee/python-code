@@ -4,6 +4,7 @@ node {
     def  DOCKER_REGISTRY = 'docker.io'
     def  DOCKER_REGISTRY_URL = 'https://docker.io'
     def  DOCKER_NAMESPACE = 'default'
+    def  DOCKER_USER = 'andylee1973'
     def  IMAGE_NAME = 'andylee1973/python'
   
     stage('Clone repository') {
@@ -40,7 +41,23 @@ node {
               sudo podman logout
              """
         } 
-        */ 
+        */
+        
+        
+        TOKEN = credentials(DOCKERHUB_TOKEN_ID)
+        
+        sh """
+              #!/bin/bash
+              IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
+              IMAGE_WITH_TAG=\${IMAGE}:${CTS}
+              echo ${DOCKER_USER} ${TOKEN}
+              sudo podman login -u ${DOCKER_USER} -p ${TOKEN} ${DOCKER_REGISTRY_URL}
+              sudo podman push \${IMAGE_WITH_TAG}  
+              sudo podman logout
+             """
+        
+        
+        /*
         withCredentials([usernamePassword(credentialsId: DOCKERHUB_TOKEN_ID, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
           sh """
               #!/bin/bash
@@ -52,6 +69,7 @@ node {
               sudo podman logout
              """
         }
+        */
         /*
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: DOCKERHUB_TOKEN_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
           sh """
