@@ -41,7 +41,7 @@ node {
              """
         } 
         */        
-        withCredentials([[[$class: 'UsernamePasswordMultiBinding', credentialsId: DOCKERHUB_TOKEN_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: DOCKERHUB_TOKEN_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
           sh """
               #!/bin/bash
               IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
