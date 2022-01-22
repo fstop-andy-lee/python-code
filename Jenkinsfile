@@ -47,7 +47,7 @@ node {
         } 
         */
         
-        sh "echo ${DOCKER_TOKEN} " 
+        sh "echo ${env.DOCKER_TOKEN} " 
         sh """
               #!/bin/bash
               IMAGE=${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${IMAGE_NAME}
